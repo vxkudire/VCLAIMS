@@ -1,0 +1,79 @@
+
+designing claims engine
+
+
+MEMBERS
+----------
+MEMBER:MEMBER_ID,MEMBER_NBR,PLAN_NBR,YMDEFF,YMDEND,VOID,TRANSCODE,YMDTRANS,OPNBR
+PLAN:PLAN_ID,PLAN_NBR,DED_MAX,OOP_MAX,LIFE_MAX,YMDEFF,YMDEND,VOID,TRANSCODE,YMDTRANS,OPNBR
+
+
+BENEFITS
+----------
+BENEFIT:BENEFIT_ID,BENEFIT_NBR,PLAN_NBR,PROC_NBR,YMDTRANS,OPNBR
+COUNTER: COUNTER_ID,CNTR_NAME,TYPE
+
+
+PROVIDERS
+----------
+PROVIDER: PROV_ID,PROV_NBR,NAME,ADDRESS,YMDEFF,YMDEND,VOID,TRANSCODE,YMDTRANS,OPNBR
+PROVPROC: PROVPROC_ID,PROV_NBR,PROC_NBR,YMDEFF,YMDEND,VOID,TRANSCODE,YMDTRANS,OPNBR
+
+
+PRICING
+----------
+PROCEDURE: PROC_ID,PROC_NBR,DESCRIPTION,AMTALLOW,YMDEFF,YMDEND,VOID,TRANSCODE,YMDTRANS,OPNB
+
+
+CLAIMS  (PAID=N/Y) (RESOLUTION=10(approved)/30(pended)/50(denied))
+----------
+CLAIM: CLAIM_ID,CLAIM_NBR,MEMBER_NBR,PROV_NBR,PROC_NBR,YMDDOS,RESOLUTION,PAID,AMTCHARGE,AMTALLOW,AMTDENY,AMTDISC,AMTCOPAY,AMTDEDUCT,AMTCOINS,AMTPAY,TRANSCODE,YMDTRANS,OPNBR
+ACCUM: ACCUM_ID,MEMBER_NBR,CLAIM_NBR,CNTR_NAME,AMTAPPLY,TRANSCODE,YMDTRANS,OPNBR
+ACCTNG: ACCTNG_ID,PAYABLE_NBR,CLAIM_NBR,JE_TYPE,AMTAPPLY,YMDPAID,TRANSCODE,YMDTRANS,OPNBR
+CHECK: CHECK_ID,PAYABLE_NBR,PROV_NBR,AMTCHECK,YMDPAID,YMDCLEAR,YMDVOID,TRANSCODE,YMDTRANS,OPNBR
+
+
+
+Pend Scenario: Duplicate Service on same day
+
+
+
+-->
+************************************************************
+************************************************************
+spring Web
+Database
+Spring Data JPA
+Config Client
+validation - validations on input
+spring boot actuator - open telemetry
+spring cloud starter bus for RabbitMQ
+springdoc openAPI - swagger
+lombok
+springboot devtools
+************************************************************
+************************************************************
+
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <to>
+                        <image>vxkudire/${project.artifactId}:${project.version}</image>
+                    </to>
+                </configuration>
+            </plugin>
+
+

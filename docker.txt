@@ -1,0 +1,32 @@
+databases:
+***********************
+docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=kudire mysql:latest
+-- default user: "root"
+
+docker run -d -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=kudire -d postgres:latest
+--The default "postgres" user and database are created in the entrypoint with "initdb"
+
+https://tableplus.com/
+-- UI to connect to multiple databases such as postgres,mysql. Other alternatives are DBeaver
+
+IAM:
+*************************
+docker run -d -p 127.0.0.1:7080:8080 --name keycloak -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.7.0 start-dev
+-- https://www.keycloak.org/getting-started/getting-started-docker
+-- http://localhost:7080/admin
+-- http://localhost:7080/realms/master/account
+
+
+Observability & Monitoring
+*******************************
+docker run -d -p 3000:3000 --name=grafana grafana/grafana-enterprise
+
+
+
+Docker Commands
+*************************
+docker build . -t vxkudire/myapp:1.0.0
+mvn compile spring-boot:build-image   # Build a Docker image natively
+mvn compile jib:dockerBuild           # Build a Docker image using Jib
+docker run -d -p 8888:8888 --env-file .env --name myapp vxkudire/myapp:1.0.0
+docker image push docker.io/vxkudire/myapp:1.0.0
