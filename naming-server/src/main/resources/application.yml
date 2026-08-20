@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: naming-server
+  config:
+    import: optional:configserver:http://localhost:8888/
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"

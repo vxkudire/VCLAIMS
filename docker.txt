@@ -1,6 +1,7 @@
 databases:
 ***********************
-docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=kudire mysql:latest
+docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=kudire -e MYSQL_DATABASE=venky mysql:latest
+docker exec -it mysql mysql -u root -pkudire -e "ALTER USER 'root'@'%' IDENTIFIED WITH 'caching_sha2_password' BY 'kudire'; FLUSH PRIVILEGES;"
 -- default user: "root"
 
 docker run -d -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=kudire -d postgres:latest

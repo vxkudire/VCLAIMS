@@ -1,0 +1,9 @@
+.env
+.idea/
+target/
+build/
+*.class
+*.jar
+*.war
+*.ear
+*.log
